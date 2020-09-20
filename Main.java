@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Main {
     /**
@@ -15,17 +16,24 @@ public class Main {
     2 C A B
     3 B A C
      */
-    public static void main(String[] args){
-        System.out.println("Please input the number of companies and people (Max of 26) AND");
-        System.out.println("Please enter the basename of a .txt file separated with a space");
+    public static void main(String[] args) throws FileNotFoundException { 
+        //System.out.println("Please input the number of companies and people (Max of 26) AND");
         //PETER SAID IT WAS OK TO CAP AT 26
+        System.out.println("Please input the path of a .txt file separated with a space");
         Scanner scanner = new Scanner(System.in);
-        int clients = scanner.nextInt();
+        //int clients = scanner.nextInt();
         String fileName = scanner.nextLine();
-        File file = new File(fileName + ".txt"); 
-        if (clients > 26){
-            System.out.println("Input not less than 26. Please try again");
-        }
+        //File file = new File("C:/Users/cooki/OneDrive/Desktop/lab5Data.txt");
+        File file = new File(fileName);
+        Scanner fileScanner = new Scanner(file);
+        // if (clients > 26){
+        //     System.out.println("Input not less than 26. Please try again");
+        // }
+        System.out.println(fileScanner.nextLine());
+        // while (scanner.hasNextLine()){
+        //     String line = scanner.nextLine();
+        //     System.out.println(line); 
+        // } 
         //should figure out a way to take in a line of the text file and convert it to a string
         //use parseInt to input the lines of a text file here
     }
@@ -39,4 +47,10 @@ public class Main {
     // public static boolean compareRank(T clientOne, T clientTwo, ArrayList<T> clientOneRank, ArrayList<T> clientTwoRank){
     //     return null;
     // }
+
+    //NEED TO DO
+    //Initialize each company and their rankings of the people
+    //Initialize each person and their rankings of the companies
+    //A while loop where the companies pick people and the people either accept or reject
+    
 }
