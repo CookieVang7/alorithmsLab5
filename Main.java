@@ -17,25 +17,34 @@ public class Main {
     3 B A C
      */
     public static void main(String[] args) throws FileNotFoundException { 
-        //System.out.println("Please input the number of companies and people (Max of 26) AND");
+
+        System.out.println("Please input the number of companies and people (Max of 26)");
         //PETER SAID IT WAS OK TO CAP AT 26
-        System.out.println("Please input the path of a .txt file separated with a space");
-        Scanner scanner = new Scanner(System.in);
-        //int clients = scanner.nextInt();
-        String fileName = scanner.nextLine();
-        //File file = new File("C:/Users/cooki/OneDrive/Desktop/lab5Data.txt");
-        File file = new File(fileName);
-        Scanner fileScanner = new Scanner(file);
-        // if (clients > 26){
-        //     System.out.println("Input not less than 26. Please try again");
-        // }
-        System.out.println(fileScanner.nextLine());
-        // while (scanner.hasNextLine()){
-        //     String line = scanner.nextLine();
-        //     System.out.println(line); 
-        // } 
-        //should figure out a way to take in a line of the text file and convert it to a string
-        //use parseInt to input the lines of a text file here
+        Scanner scanner = new Scanner(System.in); //Input for the number of companies and people
+        int clients = scanner.nextInt(); //Takes in a number less than or equal to
+        
+        if (clients > 26){ //If input is something other than a number less than or equal to 26
+            System.out.println("Input not less than 26. Please try again");
+        }
+        
+        //Sample path: C:/Users/cooki/OneDrive/Desktop/lab5Data.txt
+        //I have to flip the slashes when I copy it and add the file name at the end
+        if (clients <= 26) { //Now input a path for the text file that has each company and their ranks/preferences
+            System.out.println("");
+            System.out.println("Please input the path of a .txt file with the ranks/preferences");
+            System.out.println("An example of what each line in the file should be is: A 2 3 5 1 4");
+            System.out.println("The first character 'A' resembles company A followed by how they rank 5 people");
+            System.out.println("Eventually, you should have lines that look like: 1 C A E B D");
+            System.out.println("The first character '1' resembles person 1 followed by how they rank 5 companies");
+            System.out.println("The number of companies and people should MATCH the number you input above");
+            Scanner scanner2 = new Scanner(System.in); //Taking in the input path
+            String fileName = scanner2.nextLine(); //The input path is called fileName
+            File file = new File(fileName); //Creating a new file with the input path
+            Scanner fileScanner = new Scanner(file); //Scanning the input file
+            System.out.println(fileScanner.nextLine()); 
+        }
+         //rest of algorithm goes here
+        
     }
 
     // Client can either mean the company or the people
