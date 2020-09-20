@@ -26,26 +26,34 @@ public class Main {
         if (clients > 26){ //If input is something other than a number less than or equal to 26
             System.out.println("Input not less than 26. Please try again");
         }
-        
+
         //Sample path: C:/Users/cooki/OneDrive/Desktop/lab5Data.txt
         //I have to flip the slashes when I copy it and add the file name at the end
-        if (clients <= 26) { //Now input a path for the text file that has each company and their ranks/preferences
+        if (clients <= 26) { 
             System.out.println("");
             System.out.println("Please input the path of a .txt file with the ranks/preferences");
             System.out.println("An example of what each line in the file should be is: A 2 3 5 1 4");
             System.out.println("The first character 'A' resembles company A followed by how they rank 5 people");
             System.out.println("Eventually, you should have lines that look like: 1 C A E B D");
             System.out.println("The first character '1' resembles person 1 followed by how they rank 5 companies");
-            System.out.println("The number of companies and people should MATCH the number you input above");
-            Scanner scanner2 = new Scanner(System.in); //Taking in the input path
-            String fileName = scanner2.nextLine(); //The input path is called fileName
-            File file = new File(fileName); //Creating a new file with the input path
-            Scanner fileScanner = new Scanner(file); //Scanning the input file
-            System.out.println(fileScanner.nextLine()); 
+            System.out.println("The number of companies and people should MATCH the number you input above"); 
         }
-         //rest of algorithm goes here
+
+        //Now input a path for the text file that has each company and their ranks/preferences
+        Scanner scanner2 = new Scanner(System.in); //Taking in the input path
+        String fileName = scanner2.nextLine(); //The input path is called fileName
+        File file = new File(fileName); //Creating a new file with the input path
+        Scanner fileScanner = new Scanner(file); //Scanning the input file
+        
+        while (fileScanner.hasNextLine()){
+            //char client = fileScanner.next().charAt(0); 
+            System.out.println(fileScanner.nextLine());
+        }
+        
         
     }
+
+    
 
     // Client can either mean the company or the people
     // public static ArrayList<T>[] hire(int client){
