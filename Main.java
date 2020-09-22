@@ -44,11 +44,25 @@ public class Main {
         String fileName = scanner2.nextLine(); //The input path is called fileName
         File file = new File(fileName); //Creating a new file with the input path
         Scanner fileScanner = new Scanner(file); //Scanning the input file
-        
+
+        ArrayList<Character> ranks = new ArrayList<>();
+
         while (fileScanner.hasNextLine()){
-            //char client = fileScanner.next().charAt(0); 
-            System.out.println(fileScanner.nextLine());
+            char client = fileScanner.next().charAt(0); //Gets the first character of each line, either the company or person 
+            String line = fileScanner.nextLine();
+            int length = line.length()/2;
+            if (clients != length){ //If text file has incorrect line (preference) length
+                System.out.println("Your text file has one or more lines where the preferences don't match"
+                + " the number of companies and people that you input. Please fix that");
+                break;
+            }
+            ranks.add(client);
+            //System.out.println(client);
+            //System.out.println(line);
+            //System.out.println(length);
         }
+        System.out.println(ranks);
+        
         
         
     }
