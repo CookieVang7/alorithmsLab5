@@ -70,9 +70,9 @@ public class Main {
         //A hashset where the companies that still haven't hired anyone exist
         //Similar to a hashmap
         int companyLength = counter/2;
-        Set<Integer> comapniesLeft = new HashSet <Integer> ();
+        Set<Integer> companiesLeft = new HashSet <Integer> ();
         for (int i=0; i < companyLength; i++){
-            comapniesLeft.add(i);
+            companiesLeft.add(i);
         }
         
         // //A hashmap where the workers that are still unemployed exist
@@ -82,12 +82,35 @@ public class Main {
             workersLeft.put(i, null);
         }
 
-        // int available = comapniesLeft.size();
+        // int available = companiesLeft.size();
         // while (available > 0){
         //     //Iterators loop through arrays, sets, and lists
         //     //iterator().next() will return the first value in this case
         //     int currentCompany = comapniesLeft.iterator().next(); 
-        //     for (int w : arrays[available])
+        //     for (int w : arrays[available]){
+        //         Integer fresh = workersLeft.get(w); //Look at the first worker in the hashmap
+        //         if (fresh == null){ //Null values mean no job so if the worker is unemployed
+        //             workersLeft.put(w, currentCompany); //Hire the worker and assign the worker a value in the hash 
+        //             //map so it no longer has a null value. Put method like an add method
+        //             companiesLeft.remove(currentCompany); //Taking pointer out of hashset saying a company hired someone
+        //             break;
+        //         }
+        //         else { //If the worker is already employed by a company
+        //             int prefCurrent = -1;
+        //             int prefNew = -1;
+        //             for (int k = 0; k < companyLength; k++){
+        //                 if (arrays[w][k] == fresh){
+        //                     prefCurrent = k; //Find preference order for current company
+        //                 } 
+        //                 if (arrays[w][k] == currentCompany){
+        //                     prefNew = k; //Find preference order for new company
+        //                 }
+        //             }
+        //             if (prefNew < prefCurrent) {
+        //                 workersLeft.put(w,currentCompany);
+        //             }
+        //         }
+        //     }
         // }
         
         
