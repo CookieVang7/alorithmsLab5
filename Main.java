@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map.Entry;
 
 public class Main {
     /**
@@ -32,7 +33,7 @@ public class Main {
         if (clients <= 26) { 
             System.out.println("");
             System.out.println("Please input the path of a .txt file with the ranks/preferences");
-            System.out.println("An example of what each line in the file should be is: A 2 3 5 1 4");
+            System.out.println("An example of what each line in the file should be is: 2 3 5 1 4");
             System.out.println("The first character 'A' resembles company A followed by how they rank 5 people");
             System.out.println("Eventually, you should have lines that look like: 1 C A E B D");
             System.out.println("The first character '1' resembles person 1 followed by how they rank 5 companies");
@@ -45,39 +46,55 @@ public class Main {
         File file = new File(fileName); //Creating a new file with the input path
         Scanner fileScanner = new Scanner(file); //Scanning the input file
 
-        ArrayList<Character> ranks = new ArrayList<>();
-
-        while (fileScanner.hasNextLine()){
-            char client = fileScanner.next().charAt(0); //Gets the first character of each line, either the company or person 
-            String line = fileScanner.nextLine();
-            int length = line.length()/2;
-            if (clients != length){ //If text file has incorrect line (preference) length
-                System.out.println("Your text file has one or more lines where the preferences don't match"
-                + " the number of companies and people that you input. Please fix that");
-                break;
-            }
-            ranks.add(client);
-            //System.out.println(client);
-            //System.out.println(line);
-            //System.out.println(length);
-        }
-        System.out.println(ranks);
+        // int clientNum = fileScanner.nextInt(); //Number of companies and people
+        // String line2 = fileScanner.nextLine(); //Skips the rest of the first line
+        int arrayNum = 2*clients;
+        int arrays[][] = new int[arrayNum][clients];
+        int counter = 0;
         
+        for (int i = 0; i < arrayNum; i++){ //Create an array for each line of the file
+            for (int j = 0; j < clients; j++){
+                arrays[i][j] = fileScanner.nextInt();
+            }
+            String line = fileScanner.nextLine();
+            counter++;
+        }
+        for (int m = 0; m < clients; m++){ //Return the array of a single line
+            System.out.println(arrays[clients][m]);
+        }
+        //At this point, we can return a company's/person's ranking
+
+
+        
+
+        //A hashset where the companies that still haven't hired anyone exist
+        //Similar to a hashmap
+        int companyLength = counter/2;
+        Set<Integer> comapniesLeft = new HashSet <Integer> ();
+        for (int i=0; i < companyLength; i++){
+            comapniesLeft.add(i);
+        }
+        
+        // //A hashmap where the workers that are still unemployed exist
+        // //Hashmap has a key value pair so we can assign a null value to workers that have yet to be employed 
+        Map<Integer, Integer> workersLeft = new HashMap <Integer, Integer> ();
+        for (int i=0; i < companyLength; i++){
+            workersLeft.put(i, null);
+        }
+
+        // int available = comapniesLeft.size();
+        // while (available > 0){
+        //     //Iterators loop through arrays, sets, and lists
+        //     //iterator().next() will return the first value in this case
+        //     int currentCompany = comapniesLeft.iterator().next(); 
+        //     for (int w : arrays[available])
+        // }
         
         
     }
 
-    
 
-    // Client can either mean the company or the people
-    // public static ArrayList<T>[] hire(int client){
-    //     return null;
-    // }
-
-    //helper method that compares two rankings
-    // public static boolean compareRank(T clientOne, T clientTwo, ArrayList<T> clientOneRank, ArrayList<T> clientTwoRank){
-    //     return null;
-    // }
+   
 
     //NEED TO DO
     //Initialize each company and their rankings of the people
@@ -85,3 +102,4 @@ public class Main {
     //A while loop where the companies pick people and the people either accept or reject
     
 }
+
