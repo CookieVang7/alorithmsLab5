@@ -28,43 +28,34 @@ public class Main {
     The second block is the preferences of the workers. So worker 1 would prefer company 1, then company 2, and lastly company 0
     Each number should be separated by a space.
 
+    COUNTING STARTS AT 0!!! So if the number you input is 3, there should be preferences with only 0 1 and 2
+
      */
     public static void main(String[] args) throws FileNotFoundException { 
 
-        System.out.println("Please input the number of companies and people (Max of 26)");
-        //PETER SAID IT WAS OK TO CAP AT 26
+        System.out.println("Please input the number of companies and people");
         Scanner scanner = new Scanner(System.in); //Input for the number of companies and people
-        int clients = scanner.nextInt(); //Takes in a number less than or equal to
-        
-        if (clients > 26){ //If input is something other than a number less than or equal to 26
-            System.out.println("Input not less than 26. Please try again");
-        }
+        int clients = scanner.nextInt(); //Names input number clients
 
+        //Example where clients = 4
         //Sample path: C:/Users/cooki/OneDrive/Desktop/lab5Data.txt
-        //I have to flip the slashes when I copy it and add the file name at the end
-        if (clients <= 26) { 
-            System.out.println("");
-            System.out.println("Please input the path of a .txt file with the ranks/preferences");
-            System.out.println("An example of what each line in the file should be is: 2 3 5 1 4");
-            System.out.println("The first character 'A' resembles company A followed by how they rank 5 people");
-            System.out.println("Eventually, you should have lines that look like: 1 C A E B D");
-            System.out.println("The first character '1' resembles person 1 followed by how they rank 5 companies");
-            System.out.println("The number of companies and people should MATCH the number you input above"); 
-        }
-
-        //Now input a path for the text file that has each company and their ranks/preferences
-        Scanner scanner2 = new Scanner(System.in); //Taking in the input path
-        String fileName = scanner2.nextLine(); //The input path is called fileName
-        File file = new File(fileName); //Creating a new file with the input path
+        //I usually have to flip the slashes when I copy the path of the file
+        
+        System.out.println("");
+        System.out.println("Please input the path of a .txt file with the ranks/preferences");
+        System.out.println("An example of what each line in the file should be is: 2 1 4");
+        System.out.println("There should two blocks, separated by a blank space");
+        
+        Scanner scanner2 = new Scanner(System.in); //Taking in the input path of a text file
+        String fileName = scanner2.nextLine(); 
+        File file = new File(fileName); //Creating a new File object with the input path
         Scanner fileScanner = new Scanner(file); //Scanning the input file
 
-        // int clientNum = fileScanner.nextInt(); //Number of companies and people
-        // String line2 = fileScanner.nextLine(); //Skips the rest of the first line
         int arrayNum = 2*clients;
-        int companyArray[][] = new int[clients][clients];
-        int employeeArray[][] = new int[clients][clients];
+        int companyArray[][] = new int[clients][clients]; //Array of arrays with company preferences
+        int employeeArray[][] = new int[clients][clients]; //Array of arrays with workers' preferences
 
-        for (int i = 0; i < arrayNum; i++){ //Creates two arrays for the company preferences and people preferences
+        for (int i = 0; i < arrayNum; i++){ //Makes two array of arrays with the data from text file
             if (i < clients){
                 for (int j = 0; j < clients; j++){
                 companyArray[i][j] = fileScanner.nextInt();
@@ -79,14 +70,13 @@ public class Main {
             }
         }
 
-        
+        // Returns the array of arrays 
         // for (int m = 0; m < clients; m++){ //Return the array of a single line
         //     for (int b = 0; b < clients; b++){
         //         System.out.println(companyArray[m][b]);
         //     }
         // }
         
-
         //A hashset where the companies that still haven't hired anyone exist
         //Similar to a hashmap
         Set<Integer> companiesLeft = new HashSet <Integer> ();
@@ -102,32 +92,32 @@ public class Main {
         }
 
         int available = companiesLeft.size();
-        while (available > 0){
+        while (available > 0){ //While there are still companies that need to hire people
             //Iterators loop through arrays, sets, and lists
             //iterator().next() will return the first value in this case
             int currentCompany = companiesLeft.iterator().next(); 
             System.out.println("\nCompany " + currentCompany + " looks at the pool of available workers");
             for (int w : companyArray[currentCompany]){ //Looping through company preferences
-                Integer fresh = workersLeft.get(w); 
+                Integer fresh = workersLeft.get(w); // Company's choice
                 if (fresh == null){ //Null values mean no job so if the worker is unemployed
                     workersLeft.put(w, currentCompany); //Hire the worker and assign the worker a value in the hash 
-                    //map so it no longer has a null value. Put method like an add method
+                    //map so it no longer has a null value. Put method similar to an add method
                     companiesLeft.remove(currentCompany); //Taking pointer out of hashset saying a company hired someone
                     System.out.println ("Company " + currentCompany + " hires worker " + w);
                     break;
                 }
                 else { //If the worker is already employed by a company
-                    int prefFresh= -1;
-                    int prefCurrent = -1;
+                    int prefOld= -1;
+                    int prefNew = -1;
                     for (int q = 0; q < employeeArray[w].length; q++){ //Looping through workers' preferences
                         if (employeeArray[w][q] == currentCompany){
-                            prefCurrent = q; //Find preference order for old company
+                            prefNew = q; //Find preference order for new company
                         } 
                         if (employeeArray[w][q] == fresh){
-                            prefFresh = q; //Find preference order for new company
+                            prefOld = q; //Find preference order for old company
                         }
                     }
-                    if (prefCurrent < prefFresh) {
+                    if (prefNew < prefOld) { // If new company has a higher preference than the current company
                         workersLeft.put(w,currentCompany);
                         companiesLeft.remove(currentCompany);
                         companiesLeft.add(fresh);
@@ -141,8 +131,6 @@ public class Main {
             }
             available = companiesLeft.size();
         }
-        // System.out.println(companiesLeft);
-        // System.out.println(workersLeft);
 
         Iterator<Entry<Integer, Integer>> itr = workersLeft.entrySet().iterator();
         System.out.println();
