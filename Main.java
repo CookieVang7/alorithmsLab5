@@ -6,16 +6,28 @@ import java.util.Map.Entry;
 public class Main {
     /**
     @author Firas Naber and Cookie Vang
+
+    The first input should be a positive integer number to represent the number of companies and people to consider.
+    Then it should prompt for a path to a .txt file.
+
+    You might have to change all the \ to / in your path.
     
-    We capped the input at 26 so there can at most be 26 companies and 26 clients. PETER SAID THIS WAS OK.
-    In the .txt file, each company corresponds to a letter in the alphabet and the people are numbers. 
-    So if you input 3 as the number of companies and people, your .txt file should look similar to the following:
-    A 2 1 3
-    B 1 2 3 
-    C 3 1 2
-    1 A C B
-    2 C A B
-    3 B A C
+    To illustrate what your text file should look like, lets say you input the number 3.
+    That means you are considering 3 companies looking to hire 3 people.
+    Your text file could look like this:
+
+    0 1 2
+    2 0 1
+    1 2 0
+
+    2 1 0
+    1 2 0
+    0 2 1
+
+    The first block is the preferences of the companies. So company 0 would prefer worker 0, then worker 1, and lastly worker 2
+    The second block is the preferences of the workers. So worker 1 would prefer company 1, then company 2, and lastly company 0
+    Each number should be separated by a space.
+
      */
     public static void main(String[] args) throws FileNotFoundException { 
 
@@ -49,80 +61,97 @@ public class Main {
         // int clientNum = fileScanner.nextInt(); //Number of companies and people
         // String line2 = fileScanner.nextLine(); //Skips the rest of the first line
         int arrayNum = 2*clients;
-        int arrays[][] = new int[arrayNum][clients];
-        int counter = 0;
-        
-        for (int i = 0; i < arrayNum; i++){ //Create an array for each line of the file
-            for (int j = 0; j < clients; j++){
-                arrays[i][j] = fileScanner.nextInt();
+        int companyArray[][] = new int[clients][clients];
+        int employeeArray[][] = new int[clients][clients];
+
+        for (int i = 0; i < arrayNum; i++){ //Creates two arrays for the company preferences and people preferences
+            if (i < clients){
+                for (int j = 0; j < clients; j++){
+                companyArray[i][j] = fileScanner.nextInt();
+                }
+                String line = fileScanner.nextLine();
             }
-            String line = fileScanner.nextLine();
-            counter++;
+            else {
+                for (int z = 0; z < clients; z++){
+                    employeeArray[i-clients][z] = fileScanner.nextInt();
+                }
+                String anotherLine = fileScanner.nextLine();
+            }
         }
-        for (int m = 0; m < clients; m++){ //Return the array of a single line
-            System.out.println(arrays[clients][m]);
-        }
-        //At this point, we can return a company's/person's ranking
 
-
+        
+        // for (int m = 0; m < clients; m++){ //Return the array of a single line
+        //     for (int b = 0; b < clients; b++){
+        //         System.out.println(companyArray[m][b]);
+        //     }
+        // }
         
 
         //A hashset where the companies that still haven't hired anyone exist
         //Similar to a hashmap
-        int companyLength = counter/2;
         Set<Integer> companiesLeft = new HashSet <Integer> ();
-        for (int i=0; i < companyLength; i++){
+        for (int i=0; i < companyArray.length; i++){
             companiesLeft.add(i);
         }
         
         // //A hashmap where the workers that are still unemployed exist
         // //Hashmap has a key value pair so we can assign a null value to workers that have yet to be employed 
         Map<Integer, Integer> workersLeft = new HashMap <Integer, Integer> ();
-        for (int i=0; i < companyLength; i++){
+        for (int i=0; i < employeeArray.length; i++){
             workersLeft.put(i, null);
         }
 
-        // int available = companiesLeft.size();
-        // while (available > 0){
-        //     //Iterators loop through arrays, sets, and lists
-        //     //iterator().next() will return the first value in this case
-        //     int currentCompany = comapniesLeft.iterator().next(); 
-        //     for (int w : arrays[available]){
-        //         Integer fresh = workersLeft.get(w); //Look at the first worker in the hashmap
-        //         if (fresh == null){ //Null values mean no job so if the worker is unemployed
-        //             workersLeft.put(w, currentCompany); //Hire the worker and assign the worker a value in the hash 
-        //             //map so it no longer has a null value. Put method like an add method
-        //             companiesLeft.remove(currentCompany); //Taking pointer out of hashset saying a company hired someone
-        //             break;
-        //         }
-        //         else { //If the worker is already employed by a company
-        //             int prefCurrent = -1;
-        //             int prefNew = -1;
-        //             for (int k = 0; k < companyLength; k++){
-        //                 if (arrays[w][k] == fresh){
-        //                     prefCurrent = k; //Find preference order for current company
-        //                 } 
-        //                 if (arrays[w][k] == currentCompany){
-        //                     prefNew = k; //Find preference order for new company
-        //                 }
-        //             }
-        //             if (prefNew < prefCurrent) {
-        //                 workersLeft.put(w,currentCompany);
-        //             }
-        //         }
-        //     }
-        // }
-        
-        
+        int available = companiesLeft.size();
+        while (available > 0){
+            //Iterators loop through arrays, sets, and lists
+            //iterator().next() will return the first value in this case
+            int currentCompany = companiesLeft.iterator().next(); 
+            System.out.println("\nCompany " + currentCompany + " looks at the pool of available workers");
+            for (int w : companyArray[currentCompany]){ //Looping through company preferences
+                Integer fresh = workersLeft.get(w); 
+                if (fresh == null){ //Null values mean no job so if the worker is unemployed
+                    workersLeft.put(w, currentCompany); //Hire the worker and assign the worker a value in the hash 
+                    //map so it no longer has a null value. Put method like an add method
+                    companiesLeft.remove(currentCompany); //Taking pointer out of hashset saying a company hired someone
+                    System.out.println ("Company " + currentCompany + " hires worker " + w);
+                    break;
+                }
+                else { //If the worker is already employed by a company
+                    int prefFresh= -1;
+                    int prefCurrent = -1;
+                    for (int q = 0; q < employeeArray[w].length; q++){ //Looping through workers' preferences
+                        if (employeeArray[w][q] == currentCompany){
+                            prefCurrent = q; //Find preference order for old company
+                        } 
+                        if (employeeArray[w][q] == fresh){
+                            prefFresh = q; //Find preference order for new company
+                        }
+                    }
+                    if (prefCurrent < prefFresh) {
+                        workersLeft.put(w,currentCompany);
+                        companiesLeft.remove(currentCompany);
+                        companiesLeft.add(fresh);
+                        System.out.println("Worker " + w + " would prefer to work for company " + currentCompany);
+                        System.out.println("So worker " + w + " quits company " + fresh + " and is hired by company " + currentCompany);
+                        System.out.println("Now company " + fresh + " needs to find a new worker");
+                        break;
+
+                    }
+                }
+            }
+            available = companiesLeft.size();
+        }
+        // System.out.println(companiesLeft);
+        // System.out.println(workersLeft);
+
+        Iterator<Entry<Integer, Integer>> itr = workersLeft.entrySet().iterator();
+        System.out.println();
+        System.out.println("Here is the summary of hirings:");
+        System.out.println();
+        while (itr.hasNext()) {
+            Entry<Integer, Integer> entry = itr.next();
+            System.out.println ("Company " + entry.getValue()  + " hired worker " + entry.getKey());
+        }
     }
-
-
-   
-
-    //NEED TO DO
-    //Initialize each company and their rankings of the people
-    //Initialize each person and their rankings of the companies
-    //A while loop where the companies pick people and the people either accept or reject
-    
 }
 
