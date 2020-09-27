@@ -43,8 +43,7 @@ public class Main {
         
         System.out.println("");
         System.out.println("Please input the path of a .txt file with the ranks/preferences");
-        System.out.println("An example of what each line in the file should be is: 2 1 4");
-        System.out.println("There should two blocks, separated by a blank space");
+        System.out.println("If the input number is 3, each line in the file should be some permuation of: 0 1 2");
         
         Scanner scanner2 = new Scanner(System.in); //Taking in the input path of a text file
         String fileName = scanner2.nextLine(); 
