@@ -66,7 +66,6 @@ public class Main {
                 for (int z = 0; z < clients; z++){
                     employeeArray[i-clients][z] = fileScanner.nextInt();
                 }
-                String anotherLine = fileScanner.nextLine();
             }
         }
 
@@ -103,7 +102,7 @@ public class Main {
                     workersLeft.put(w, currentCompany); //Hire the worker and assign the worker a value in the hash 
                     //map so it no longer has a null value. Put method similar to an add method
                     companiesLeft.remove(currentCompany); //Taking pointer out of hashset saying a company hired someone
-                    System.out.println ("Company " + currentCompany + " hires worker " + w);
+                    System.out.println ("Company " + currentCompany + " hires Worker " + w);
                     break;
                 }
                 else { //If the worker is already employed by a company
@@ -121,11 +120,15 @@ public class Main {
                         workersLeft.put(w,currentCompany);
                         companiesLeft.remove(currentCompany);
                         companiesLeft.add(fresh);
-                        System.out.println("Worker " + w + " would prefer to work for company " + currentCompany);
-                        System.out.println("So worker " + w + " quits company " + fresh + " and is hired by company " + currentCompany);
-                        System.out.println("Now company " + fresh + " needs to find a new worker");
+                        System.out.println("Company " + currentCompany + " offered a job to Worker " + w + " and they would "
+                        + "prefer to work for them instead of Company " + fresh);
+                        System.out.println("So Worker " + w + " quits Company " + fresh + " and is hired by Company " + currentCompany);
+                        System.out.println("Now Company " + fresh + " needs to find a new Worker");
                         break;
-
+                    }
+                    if (prefOld < prefNew){
+                        System.out.println("Company " + currentCompany + " offered a job to Worker " + w);
+                        System.out.println("But Worker " + w + " prefers the job they're at. So they reject Company " + currentCompany);
                     }
                 }
             }
@@ -138,8 +141,11 @@ public class Main {
         System.out.println();
         while (itr.hasNext()) {
             Entry<Integer, Integer> entry = itr.next();
-            System.out.println ("Company " + entry.getValue()  + " hired worker " + entry.getKey());
+            System.out.println ("Company " + entry.getValue()  + " hired Worker " + entry.getKey());
         }
+        scanner.close();
+        scanner2.close();
+        fileScanner.close();
     }
 }
 
