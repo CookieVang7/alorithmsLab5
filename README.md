@@ -38,18 +38,18 @@ Your text file could look like this:<br/>
 1 2 0<br/>
 0 2 1<br/>
 
-The first block is the preferences of the companies. So company 0 would prefer worker 0, then worker 1, and lastly worker 2.<br/>
-The second block is the preferences of the workers. So worker 1 would prefer company 1, then company 2, and lastly company 0.<br/>
-Each number should be separated by a space.<br/>
-COUNTING STARTS AT 0!!! So if the number you input is 3, there should be preferences with only 0 1 and 2
+The first block is the preferences of the companies. So company 0 would prefer worker 0, then worker 1, and lastly worker 2.
+The second block is the preferences of the workers. So worker 1 would prefer company 1, then company 2, and lastly company 0. Each number should be separated by a space.
+COUNTING STARTS AT 0!!! So if the number you input is 3, there should be preferences with only 0 1 and 2 <br/>
 
 # Why our Algorithm is Correct
 <br/>
 Our algorithm finds a satisfactory solution, because let's say Company 0 prefers Worker 2 over the worker they ended up hiring. Then, Company 0 must have already offered Worker 2 a job since Worker 2 was higher on the preference list. Two cases could lead to this conclusion:<br/>
+<br/>
 1) Company 0 was the first company to offer Worker 2 a job and Worker 2 would have to accept the job from Company 0. But then a company that Worker 2 preferred more offered them a job, so they quit Company 0, forcing them to hire a less preferrable worker.<br/>
 2) Worker 2 already had a job when they were offered one by Company 0. But Worker 2 liked the company they were at more and rejected Company 0.<br/>
 <br/>
-In either case, if a company would have preferred a different worker to the one they ended up with, they would've already made a job offer to them.<br/>
+In either case, if a company would have preferred a different worker to the one they ended up with, they would've already made a job offer to them.
 It's important to note that this is an optimal satisfactory solution from the perspective of the companies and not necessarily from the perspective of the workers. The workers don't have the opportunity to choose who they would prefer to work for, but can only make a best choice based on the offers they are given. What this implies is that if the workers got to choose the companies, there would be different pairing results that reflect the preferences of the workers and not necessarily the companies (reference: https://www.youtube.com/watch?v=0m_YW1zVs-Q).
 
 # Efficiency of Our Algorithm
@@ -73,6 +73,7 @@ Worker Preferences:<br/>
 3 2 0 1<br/>
 
 (For this test, we'll include what goes on when the program runs)<br/>
+<br/>
 Company 0 looks at the pool of available workers<br/>
 Company 0 hires Worker 0<br/>
 
