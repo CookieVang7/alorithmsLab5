@@ -1,5 +1,9 @@
 # algorithmsLab5
 
+Our algorithm is a resemblance of a Gale-Shapley algorithm which is also known as the Stable Marriage problem (reference: https://prismoskills.appspot.com/lessons/Algorithms/Chapter_14_-_Marriage_problem.jsp).<br/>
+
+There is essentially an n amount of companies that want to hire an n amount of workers. Both the companies and workers have preferenes/ranks of each other. Companies will go through their preferences and hire the people highest on their list. If that worker has not yet had a job offer, they will accept the job. But if they are currently employed and get a job offer that is higher based on their preference of the companies, the person will quit their current job and accept the new job. This leaves the old company to look for a new worker.<br/>
+
 What our algorithm does is put all the companies into a hash set and all the workers in to a hash map with null values.
 While there are still companies in the hash set, then we look at a companies' preferences for workers.<br/>
 
@@ -40,10 +44,7 @@ Each number should be separated by a space.<br/>
 COUNTING STARTS AT 0!!! So if the number you input is 3, there should be preferences with only 0 1 and 2
 
 # Why our Algorithm is Correct
-Our algorithm was a resemblance of a Gale-Shapley algorithm which is also known as the Stable Marriage problem (reference: https://prismoskills.appspot.com/lessons/Algorithms/Chapter_14_-_Marriage_problem.jsp).<br/>
-
-There is essentially an n amount of companies that want to hire an n amount of workers. Both the companies and workers have preferenes/ranks of each other. Companies will go through their preferences and hire the people highest on their list. If that worker has not yet had a job offer, they will accept the job. But if they are currently employed and get a job offer that is higher based on their preference of the companies, the person will quit their current job and accept the new job. This leaves the old company to look for a new worker.<br/>
-
+<br/>
 Our algorithm finds a satisfactory solution, because let's say Company 0 prefers Worker 2 over the worker they ended up hiring. Then, Company 0 must have already offered Worker 2 a job since Worker 2 was higher on the preference list. Two cases could lead to this conclusion:<br/>
 1) Company 0 was the first company to offer Worker 2 a job and Worker 2 would have to accept the job from Company 0. But then a company that Worker 2 preferred more offered them a job, so they quit Company 0, forcing them to hire a less preferrable worker.<br/>
 2) Worker 2 already had a job when they were offered one by Company 0. But Worker 2 liked the company they were at more and rejected Company 0.<br/>
