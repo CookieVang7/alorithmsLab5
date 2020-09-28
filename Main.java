@@ -54,6 +54,7 @@ public class Main {
         int companyArray[][] = new int[clients][clients]; //Array of arrays with company preferences
         int employeeArray[][] = new int[clients][clients]; //Array of arrays with workers' preferences
 
+        //We think this will have an efficiency of n^2
         for (int i = 0; i < arrayNum; i++){ //Makes two array of arrays with the data from text file
             if (i < clients){
                 for (int j = 0; j < clients; j++){
@@ -77,13 +78,15 @@ public class Main {
         
         //A hashset where the companies that still haven't hired anyone exist
         //Similar to a hashmap
+        //Efficiency of n
         Set<Integer> companiesLeft = new HashSet <Integer> ();
         for (int i=0; i < companyArray.length; i++){
             companiesLeft.add(i);
         }
         
-        // //A hashmap where the workers that are still unemployed exist
-        // //Hashmap has a key value pair so we can assign a null value to workers that have yet to be employed 
+        //A hashmap where the workers that are still unemployed exist
+        //Hashmap has a key value pair so we can assign a null value to workers that have yet to be employed
+        //Efficiency of n 
         Map<Integer, Integer> workersLeft = new HashMap <Integer, Integer> ();
         for (int i=0; i < employeeArray.length; i++){
             workersLeft.put(i, null);
@@ -95,8 +98,8 @@ public class Main {
             //iterator().next() will return the first value in this case
             int currentCompany = companiesLeft.iterator().next(); 
             System.out.println("\nCompany " + currentCompany + " looks at the pool of available workers");
-            for (int w : companyArray[currentCompany]){ //Looping through company preferences
-                Integer fresh = workersLeft.get(w); // Company's choice
+            for (int w : companyArray[currentCompany]){ //Looping through company preferences. Efficiency of n
+                Integer fresh = workersLeft.get(w); // Worker company is considering
                 if (fresh == null){ //Null values mean no job so if the worker is unemployed
                     workersLeft.put(w, currentCompany); //Hire the worker and assign the worker a value in the hash 
                     //map so it no longer has a null value. Put method similar to an add method
@@ -107,7 +110,7 @@ public class Main {
                 else { //If the worker is already employed by a company
                     int prefOld= -1;
                     int prefNew = -1;
-                    for (int q = 0; q < employeeArray[w].length; q++){ //Looping through workers' preferences
+                    for (int q = 0; q < employeeArray[w].length; q++){ //Looping through workers' preferences, effcieincy of n
                         if (employeeArray[w][q] == currentCompany){
                             prefNew = q; //Find preference order for new company
                         } 
