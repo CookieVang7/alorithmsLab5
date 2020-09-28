@@ -47,13 +47,15 @@ There is essentially an n amount of companies that want to hire an n amount of w
 Our algorithm finds a satisfactory solution, because let's say Company 0 prefers Worker 2 over the worker they ended up hiring. Then, Company 0 must have already offered Worker 2 a job since Worker 2 was higher on the preference list. Two cases could lead to this conclusion:<br/>
 1) Company 0 was the first company to offer Worker 2 a job and Worker 2 would have to accept the job from Company 0. But then a company that Worker 2 preferred more offered them a job, so they quit Company 0, forcing them to hire a less preferrable worker.<br/>
 2) Worker 2 already had a job when they were offered one by Company 0. But Worker 2 liked the company they were at more and rejected Company 0.<br/>
+<br/>
 In either case, if a company would have preferred a different worker to the one they ended up with, they would've already made a job offer to them.<br/>
 It's important to note that this is an optimal satisfactory solution from the perspective of the companies and not necessarily from the perspective of the workers. The workers don't have the opportunity to choose who they would prefer to work for, but can only make a best choice based on the offers they are given. What this implies is that if the workers got to choose the companies, there would be different pairing results that reflect the preferences of the workers and not necessarily the companies (reference: https://www.youtube.com/watch?v=0m_YW1zVs-Q).
 
 # Efficiency of Our Algorithm
 
 # Test Data and Results
-Test 1: 4 companies and 4 workers<br/>
+<br/>
+**Test 1:** 4 companies and 4 workers<br/>
 Company Preferences:<br/>
 (Note: The first row below is Company 0's preferences of Workers 0, 1, 2 and 3)<br/>
 0 1 2 3<br/>
@@ -95,7 +97,8 @@ Company 0 hired Worker 1<br/>
 Company 1 hired Worker 2<br/>
 Company 2 hired Worker 3<br/>
 
-Test 2: 10 companies and 10 workers<br/>
+**Test 2:** 10 companies and 10 workers<br/>
+<br/>
 Company Preferences:<br/>
 0 1 2 3 4 5 6 7 8 9<br/>
 0 2 3 5 1 4 6 8 7 9<br/>
@@ -131,7 +134,8 @@ Company 9 hired Worker 7<br/>
 Company 7 hired Worker 8<br/>
 Company 8 hired Worker 9<br/>
 
-Test 3: 15 companies and 15 workers<br/>
+**Test 3:** 15 companies and 15 workers<br/>
+<br/>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14<br/>
 0 1 2 3 4 5 7 6 8 9 11 10 12 13 14<br/>
 1 3 2 4 5 10 11 13 14 7 8 9 6 12 0<br/>
