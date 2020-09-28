@@ -55,6 +55,7 @@ It's important to note that this is an optimal satisfactory solution from the pe
 
 # Test Data and Results
 <br/>
+
 **Test 1:** 4 companies and 4 workers<br/>
 Company Preferences:<br/>
 (Note: The first row below is Company 0's preferences of Workers 0, 1, 2 and 3)<br/>
