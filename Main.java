@@ -78,10 +78,11 @@ public class Main {
         
         //A hashset where the companies that still haven't hired anyone exist
         //Similar to a hashmap
-        //Efficiency of n
         Set<Integer> companiesLeft = new HashSet <Integer> ();
         for (int i=0; i < companyArray.length; i++){
-            companiesLeft.add(i);
+            companiesLeft.add(i); //depending on the number of entries in the hash set,
+            //we'll have to go through the hash set an n amount of times in the worst case
+            //so this loop has n^2 efficiency in the worst case
         }
         
         //A hashmap where the workers that are still unemployed exist
@@ -89,9 +90,14 @@ public class Main {
         //Efficiency of n 
         Map<Integer, Integer> workersLeft = new HashMap <Integer, Integer> ();
         for (int i=0; i < employeeArray.length; i++){
-            workersLeft.put(i, null);
+            workersLeft.put(i, null); //depending on the number of entries in the hash map,
+            //we'll have to go through the hash map an n amount of times in the worst case
+            //so this loop has n^2 efficiency in the worst case
         }
 
+        //the worst case would be when all the companies have the same preferences of the people
+        //and all the people have the same preferences reversed 
+        //so if all the companies had 0 1 2 3 4 5 and the workers had 5 4 3 2 1 0
         int available = companiesLeft.size();
         while (available > 0){ //While there are still companies that need to hire people
             //Iterators loop through arrays, sets, and lists
@@ -119,9 +125,9 @@ public class Main {
                         }
                     }
                     if (prefNew < prefOld) { // If new company has a higher preference than the current company
-                        workersLeft.put(w,currentCompany);
-                        companiesLeft.remove(currentCompany);
-                        companiesLeft.add(fresh);
+                        workersLeft.put(w,currentCompany);//effciency of at most O(n)
+                        companiesLeft.remove(currentCompany);//efficiency of at most O(n)
+                        companiesLeft.add(fresh);//efficiency of at most O(n)
                         System.out.println("Company " + currentCompany + " offered a job to Worker " + w + " and they would "
                         + "prefer to work for them instead of Company " + fresh);
                         System.out.println("So Worker " + w + " quits Company " + fresh + " and is hired by Company " + currentCompany);
@@ -141,7 +147,7 @@ public class Main {
         System.out.println();
         System.out.println("Here is the summary of hirings:");
         System.out.println();
-        while (itr.hasNext()) {
+        while (itr.hasNext()) { //efficiency of n since it lists all the pairings for n people
             Entry<Integer, Integer> entry = itr.next();
             System.out.println ("Company " + entry.getValue()  + " hired Worker " + entry.getKey());
         }

@@ -51,6 +51,15 @@ In either case, if a company would have preferred a different worker to the one 
 It's important to note that this is an optimal satisfactory solution from the perspective of the companies and not necessarily from the perspective of the workers. The workers don't have the opportunity to choose who they would prefer to work for, but can only make a best choice based on the offers they are given. What this implies is that if the workers got to choose the companies, there would be different pairing results that reflect the preferences of the workers and not necessarily the companies (reference: https://www.youtube.com/watch?v=0m_YW1zVs-Q).
 
 # Efficiency of Our Algorithm
+Our algorithm has an efficiency of O(n^2) in the worst case.<br/>
+<br/>
+The worst case would be when the companies all have the same preferences of the people. So if there are 5 companies 
+and 5 workers, the companies would all have: 0 1 2 3 4 5 6 as their preference of workers. And the workers would 
+all have the same preferences of the companies in reverse order. So using the same example, the workers would have 
+their preference be: 5 4 3 2 1 0.<br/>
+<br/>
+In this case, our algorithm will only run line 109 one time but will have to 
+run the else condition on line 116 which has a for loop in it that runs O(n). Also, the if statement on line 127 that includes the put, remove, and add method will be run instead of the if statement on line 137. The put, remove, and add method all have a worst case run time of O(n). The for loops on lines 82 and 92 will have a worst case of O(n^2) since the for loop runs n times and the add/put method each have a worst case of O(n). So n*n is n^2. The for loop on line 58 will run 2n times (regardless of best or worst case) and has a nested loop that runs n times (regardless of best or worst case). So the loop has a run time of O(n^2). Adding all the run times that have a significant contrbution, the run time will be O(n^2) (for all cases).
 
 # Test Data and Results
 Test 1: 4 companies and 4 workers<br/>
