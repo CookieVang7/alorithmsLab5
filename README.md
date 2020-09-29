@@ -5,7 +5,7 @@ Our algorithm is a resemblance of a Gale-Shapley algorithm which is also known a
 There is essentially an n amount of companies that want to hire an n amount of workers. Both the companies and workers have preferenes/ranks of each other. Companies will go through their preferences and hire the people highest on their list. If that worker has not yet had a job offer, they will accept the job. But if they are currently employed and get a job offer that is higher based on their preference of the companies, the person will quit their current job and accept the new job. This leaves the old company to look for a new worker.<br/>
 
 What our algorithm does is put all the companies into a hash set and all the workers in to a hash map with null values.
-While there are still companies in the hash set, then we look at a companies' preferences for workers.<br/>
+While there are still companies in the hash set (a hash set is a collection that doesn't contain any duplicate elements and the order is not fixed), then we look at a companies' preferences for workers.<br/>
 
 If the company's first choice has a null value, then they are currently not employed and accept the job.
 That worker then gets assigned the value of the company to show that they are employed and the company is 
@@ -210,3 +210,4 @@ https://www.youtube.com/watch?v=lHFlAYaNfdo<br/>
 https://kodejava.org/how-do-i-read-file-using-scanner-class/<br/>
 https://www.dummies.com/programming/java/java-use-arrays-with-two-dimensions-or-more/<br/>
 https://www.youtube.com/watch?v=4V_3HnsSS7c<br/>
+https://www.youtube.com/watch?v=LdKsP7YpIxU
